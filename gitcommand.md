@@ -32,7 +32,7 @@
 6. 不能快速合并的时候，需要手动修改文件，再重新提交
 7. 查看分支合并情况：`git log --graph --pretty=oneline --abbrev-commit`
 8. 普通模式合并分支：合并分支时，加上--no-ff参数就可以用普通模式合并，合并后的历史有分支，能看出来曾经做过合并，而fast forward合并就看不出来曾经做过合并。
-9.  查看本地分支和远程分支的关联关系`git branch -v` 
+9. 查看本地分支和远程分支的关联关系`git branch -v` 
 10. 暂存工作区的内容：`git stash`
 11. 查看暂存的内容：`git stash list`
 12. 恢复暂存区的内,但不删除stash的内容：`git stash apply `
@@ -106,6 +106,10 @@ nothing, current, upstream, simple, matching
   upstream分支同名，否则会拒绝push操作。
 - **matching** - push所有本地和远程两端都存在的同名分支。
 
+
+##### 7.git pull 失败 提示：`fatal: refusing to merge unrelated histories`
+
+在进行git pull 时，添加一个可选项`git pull origin master --allow-unrelated-histories`,强行合并分支
 
 
 

@@ -32,14 +32,15 @@
 6. 不能快速合并的时候，需要手动修改文件，再重新提交
 7. 查看分支合并情况：`git log --graph --pretty=oneline --abbrev-commit`
 8. 普通模式合并分支：合并分支时，加上--no-ff参数就可以用普通模式合并，合并后的历史有分支，能看出来曾经做过合并，而fast forward合并就看不出来曾经做过合并。
-9. 暂存工作区的内容：`git stash`
-10. 查看暂存的内容：`git stash list`
-11. 恢复暂存区的内,但不删除stash的内容：`git stash apply `
-12. 恢复暂存区的内,删除stash的内容：`git stash pop`
-13. 删除stash的内容:`git stash drop`
-14. 丢弃一个没有被合并过的分支：`git branch -D <name>`
-15. 推送本地分支到远程仓库：` git push origin branch_name`
-16. 本地创建和远程分支对应的分支，使用`git checkout -b branch-name origin/branch-name`，本地和远程分支的名称最好一致
+9.  查看本地分支和远程分支的关联关系`git branch -v` 
+10. 暂存工作区的内容：`git stash`
+11. 查看暂存的内容：`git stash list`
+12. 恢复暂存区的内,但不删除stash的内容：`git stash apply `
+13. 恢复暂存区的内,删除stash的内容：`git stash pop`
+14. 删除stash的内容:`git stash drop`
+15. 丢弃一个没有被合并过的分支：`git branch -D <name>`
+16. 推送本地分支到远程仓库：` git push origin branch_name`
+17. 本地创建和远程分支对应的分支，使用`git checkout -b branch-name origin/branch-name`，本地和远程分支的名称最好一致
 
 
 ---
@@ -75,17 +76,37 @@
 -  如果输入`git remote rm origin` 还是报错的话，`error: Could not remove config section 'remote.origin'.` 我们需要修改gitconfig文件的内容
 
 -  找到你的github的安装路径,找到一个名为gitconfig的文件，打开它把里面的`[remote "origin"]`那一行删掉就好了！
-1. github查看中文乱码
+##### 3.github查看中文乱码
+
 - 将文件用Notepad++打开后把文件转为`utf-8 无 BOM编码`重新上传就好了
 
-4.`git pull`提示`no tracking information`，则说明本地分支和远程分支的链接关系没有创建，使用：`git branch --set-upstream-to=origin/<branch> dev`
+##### 4.`git pull`提示`no tracking information`，
 
-5.Git操作的过程中突然显示`Another git process semms to be running in this repository, e.g. an editor opened by ‘git commit’. Please make sure all processes are terminated then try again. If it still fails, a git process remove the file manually to continue… `
+则说明本地分支和远程分支的链接关系没有创建，使用：`git branch --set-upstream-to=origin/<branch> dev`
+
+##### 5.Git操作的过程中突然显示被占用
+
+`Another git process semms to be running in this repository, e.g. an editor opened by ‘git commit’. Please make sure all processes are terminated then try again. If it still fails, a git process remove the file manually to continue… `
 翻译过来就是git被另外一个程序占用，重启机器也不能够解决。
 
 原因在于Git在使用过程中遭遇了奔溃，部分被上锁资源没有被释放导致的。
 
 解决方案：进入项目文件夹下的 .git文件中（需要显示隐藏文件夹）删除index.lock文件即可。
+
+##### 6.git push有几个可选值
+
+nothing, current, upstream, simple, matching
+
+其用途分别为：
+
+- **nothing** - push操作无效，除非显式指定远程分支，例如`git push origin develop`（我觉得。。。可以给那些不愿学git的同事配上此项）。
+- **current** - push当前分支到远程同名分支，如果远程同名分支不存在则自动创建同名分支。
+- **upstream** - push当前分支到它的upstream分支上（这一项其实用于经常从本地分支push/pull到同一远程仓库的情景，这种模式叫做central workflow）。
+- **simple** - simple和upstream是相似的，只有一点不同，simple必须保证本地分支和它的远程
+  upstream分支同名，否则会拒绝push操作。
+- **matching** - push所有本地和远程两端都存在的同名分支。
+
+
 
 
 
